@@ -8,8 +8,8 @@ import LeadManagement from './LeadManagement'
 import Analytics from './Analytics'
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard')
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'leads' | 'analytics'>('dashboard')
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false)
 
   return (
     <div className="flex flex-col h-screen lg:flex-row">

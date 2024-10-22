@@ -6,7 +6,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, Title)
 
-const widgets = [
+interface WidgetData {
+  id: number;
+  type: 'leadCount' | 'conversionRate' | 'revenue' | 'leadSources' | 'salesTrend';
+  title: string;
+}
+
+const widgets: WidgetData[] = [
   { id: 1, type: 'leadCount', title: 'Total Leads' },
   { id: 2, type: 'conversionRate', title: 'Conversion Rate' },
   { id: 3, type: 'revenue', title: 'Revenue' },
@@ -15,7 +21,7 @@ const widgets = [
 ]
 
 export default function WidgetGrid() {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState<boolean>(false)
 
   useEffect(() => {
     setMounted(true)

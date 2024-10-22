@@ -1,7 +1,14 @@
 import { X } from 'lucide-react'
 
-export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) {
-  const tabs = [
+interface SidebarProps {
+  activeTab: 'dashboard' | 'leads' | 'analytics';
+  setActiveTab: (tab: 'dashboard' | 'leads' | 'analytics') => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }: SidebarProps) {
+  const tabs: Array<{ id: 'dashboard' | 'leads' | 'analytics'; label: string }> = [
     { id: 'dashboard', label: 'Dashboard' },
     { id: 'leads', label: 'Lead Management' },
     { id: 'analytics', label: 'Analytics' },

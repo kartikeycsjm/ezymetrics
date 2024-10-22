@@ -1,4 +1,11 @@
-const dummyLeads = [
+interface Lead {
+  id: number;
+  name: string;
+  email: string;
+  status: string;
+}
+
+const dummyLeads: Lead[] = [
   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'New' },
   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Contacted' },
   { id: 3, name: 'Bob Johnson', email: 'bob@example.com', status: 'Qualified' },
