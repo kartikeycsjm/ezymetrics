@@ -1,3 +1,7 @@
+'use client'
+
+import { Pie, Line } from 'react-chartjs-2'
+
 export default function Widget({ type, title }) {
   const renderContent = () => {
     switch (type) {
@@ -9,22 +13,49 @@ export default function Widget({ type, title }) {
         return <div className="text-4xl font-bold">$45,678</div>
       case 'leadSources':
         return (
-          <svg viewBox="0 0 100 100" className="w-full h-40">
-            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#e0e0e0" strokeWidth="20" />
-            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#3b82f6" strokeWidth="20" strokeDasharray="188.5 251.3" />
-            <text x="50" y="50" textAnchor="middle" dy=".3em" className="text-xl font-bold">75%</text>
-          </svg>
+          <Pie
+            data={{
+              labels: ['Organic', 'Paid', 'Referral'],
+              datasets: [
+                {
+                  data: [300, 150, 100],
+                  backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'bottom',
+                },
+              },
+            }}
+          />
         )
       case 'salesTrend':
         return (
-          <svg viewBox="0 0 100 50" className="w-full h-40">
-            <polyline
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="2"
-              points="0,50 20,30 40,35 60,15 80,25 100,10"
-            />
-          </svg>
+          <Line
+            data={{
+              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+              datasets: [
+                {
+                  label: 'Sales',
+                  data: [12, 19, 3, 5, 2, 3],
+                  borderColor: 'rgb(75, 192, 192)',
+                  tension: 0.1,
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+            }}
+          />
         )
       default:
         return <div>No data</div>

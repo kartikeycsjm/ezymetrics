@@ -1,42 +1,93 @@
+'use client'
+
+import { Bar, Line } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend)
+
 export default function Analytics() {
+  const monthlyData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [12000, 19000, 3000, 5000, 2000, 3000, 15000, 21000, 18000, 23000, 17000, 29000],
+        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      },
+      {
+        label: 'Leads',
+        data: [100, 120, 80, 90, 70, 85, 110, 130, 115, 140, 125, 150],
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      },
+    ],
+  }
+
+  const conversionData = {
+    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    datasets: [
+      {
+        label: 'Conversion Rate',
+        data: [10, 12, 15, 18],
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+        fill: true,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
+  }
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-2xl font-bold mb-4">Monthly Performance</h2>
-        <div className="h-64 flex items-end space-x-2">
-          {[12, 19, 3, 5, 2, 3].map((value, index) => (
-            <div
-              key={index}
-              className="bg-blue-500 w-1/6"
-              style={{ height: `${value * 3}%` }}
-            ></div>
-          ))}
-        </div>
-        <div className="flex justify-between mt-2 text-sm text-gray-600">
-          <span>Jan</span>
-          <span>Feb</span>
-          <span>Mar</span>
-          <span>Apr</span>
-          <span>May</span>
-          <span>Jun</span>
-        </div>
+        <Bar
+          data={monthlyData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Revenue and Leads by Month',
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          }}
+        />
       </div>
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-2xl font-bold mb-4">Conversion Rate Trend</h2>
-        <svg viewBox="0 0 100 50" className="w-full h-64">
-          <polyline
-            fill="none"
-            stroke="#3b82f6"
-            strokeWidth="2"
-            points="0,45 25,40 50,30 75,20 100,10"
-          />
-        </svg>
-        <div className="flex justify-between mt-2 text-sm text-gray-600">
-          <span>Week 1</span>
-          <span>Week 2</span>
-          <span>Week 3</span>
-          <span>Week 4</span>
-        </div>
+        <Line
+          data={conversionData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Weekly Conversion Rate',
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function(value) {
+                    return value + '%'
+                  },
+                },
+              },
+            },
+          }}
+        />
       </div>
     </div>
   )
